@@ -16,8 +16,7 @@
               crossDomain: true,
               success: function( data ) {
                   // Got the data - parse it and return the temperature
-                  parsedData = $.parseJSON(data);
-                  luz = parsedData.version;
+                  luz = data.version;
                   callback(luz);
               },
               error: function() {
