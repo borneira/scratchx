@@ -21,7 +21,7 @@
               },
               error: function() {
                   luz=0;
-                  callback(0);
+                  callback(luz);
               }
         });
     };
