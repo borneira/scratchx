@@ -18,6 +18,10 @@
                   parsedData = $.parseJSON(data);
                   luz = parsedData.version;
                   callback(luz);
+              },
+              error: function() {
+                  luz=0;
+                  callback(0);
               }
         });
     };
