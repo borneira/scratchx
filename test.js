@@ -8,15 +8,16 @@
         return {status: 2, msg: 'Ready'};
     };
 
-    ext.get_temp = function(location, callback) {
+    ext.get_luz = function(location, callback) {
         // Make an AJAX call to the Open Weather Maps API
         $.ajax({
-              url: 'http://api.openweathermap.org/data/2.5/weather?q='+location+'&units=imperial',
-              dataType: 'jsonp',
-              success: function( weather_data ) {
+              url: '192.168.1.112:3480/data_request?id=lu_sdata',
+              dataType: 'json',
+              success: function( data ) {
                   // Got the data - parse it and return the temperature
-                  temperature = weather_data['main']['temp'];
-                  callback(temperature);
+                  parsedData = $.parseJSON(data);
+                  luz = parsedData.version;
+                  callback(luz);
               }
         });
     };
@@ -39,7 +40,7 @@ ext.set_alarm = function(time) {
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
-            ['R', 'current temperature in city %s', 'get_temp', 'Boston, MA'],
+            ['R', 'Luz SAURON', 'get_luz', 'Boston, MA'],
             ['', 'run alarm after %n seconds', 'set_alarm', '2'],
             ['h', 'when alarm goes off', 'when_alarm'],
         ]
