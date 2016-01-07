@@ -11,7 +11,7 @@
     ext.get_luz = function(location, callback) {
         // Make an AJAX call to the Open Weather Maps API
         $.ajax({
-              url: '192.168.1.112:3480/data_request?id=lu_sdata',
+              url: 'http://192.168.1.112:3480/data_request?id=lu_sdata',
               dataType: 'json',
               success: function( data ) {
                   // Got the data - parse it and return the temperature
