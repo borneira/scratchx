@@ -13,6 +13,7 @@
         $.ajax({
               url: 'http://192.168.1.112:3480/data_request?id=lu_sdata',
               dataType: 'json',
+              crossdomain: true,
               success: function( data ) {
                   // Got the data - parse it and return the temperature
                   parsedData = $.parseJSON(data);
