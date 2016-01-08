@@ -43,7 +43,7 @@ ext.set_alarm = function(time) {
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
-            ['r', 'Luz SAURON', 'get_luz', 'Boston, MA'],
+            ['r', 'Luz SAURON', 'get_luz'],
             ['', 'run alarm after %n seconds', 'set_alarm', '2'],
             ['h', 'when alarm goes off', 'when_alarm'],
         ]
