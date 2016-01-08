@@ -8,7 +8,7 @@
         return {status: 2, msg: 'Ready'};
     };
 
-    ext.get_luz = function() {
+    ext.get_luz = function(callback) {
         // Make an AJAX call to the Open Weather Maps API
         $.ajax({
               url: 'http://192.168.1.112/port_3480/data_request?id=lu_sdata',
@@ -16,12 +16,8 @@
                   // Got the data - parse it and return the temperature
                   //dataParsed = $.parseJSON(data);
                   luz = data.full;
-                  return luz;
+                  callback(luz);
               },
-              error: function() {
-                  luz=0;
-                  return luz;
-              }
         });
     };
 ext.set_alarm = function(time) {
