@@ -12,6 +12,7 @@
         // Make an AJAX call to the Open Weather Maps API
         $.ajax({
               url: 'http://192.168.1.112/port_3480/data_request?id=lu_sdata',
+              async: false,
               success: function( data ) {
                   // Got the data - parse it and return the temperature
                   //dataParsed = $.parseJSON(data);
