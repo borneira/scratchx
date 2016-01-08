@@ -8,7 +8,7 @@
         return {status: 2, msg: 'Ready'};
     };
 
-    ext.get_luz = function() {
+    ext.get_luz = function(ya) {
         // Make an AJAX call to the Open Weather Maps API
         $.ajax({
               url: 'http://192.168.1.112/port_3480/data_request?id=lu_sdata',
@@ -17,7 +17,7 @@
                   // Got the data - parse it and return the temperature
                   //dataParsed = $.parseJSON(data);
                   luz = data.full;
-                  return (luz);
+                  ya (luz);
               },
         });
     };
@@ -40,7 +40,7 @@ ext.set_alarm = function(time) {
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
-            ['r', 'Luz SAURON', 'get_luz'],
+            ['R', 'Luz SAURON', 'get_luz'],
             ['', 'run alarm after %n seconds', 'set_alarm', '2'],
             ['h', 'when alarm goes off', 'when_alarm'],
         ]
