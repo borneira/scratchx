@@ -13,35 +13,31 @@
 
     mswitches = [];
 
-    $.ajax({
+    data = JSON.parse ($.ajax({
         url: 'http://192.168.1.112/port_3480/data_request?id=lu_sdata',
-        async: false,
-        success: function( data ) {
-            // Got the data - parse it and return the temperature
-            //dataParsed = $.parseJSON(data);
-            dataversion = data.dataversion;
-            loadtime =  data.loadtime;
-            for (i=0 ; i< data.devices.length ; i++) {
-                switch (data.devices[i].category) {
-                    case 3:
-                        switches.push(data.devices[i]);
-                        break;
-                    case 4:
-                        sensors.push(data.devices[i]);
-                        break;
-                    case 8:
-                        wcovers.push(data.devices[i]);
-                        break;
-                    case 17:
-                        temp_sensors.push(data.devices[i]);
-                        break;
-                    case 18:
-                        light_sensors.push(data.devices[i]);
-                        break;
-                }
-            }
+        async: false}).responseText);
+
+    dataversion = data.dataversion;
+    loadtime = data.loadtime;
+    for (i = 0; i < data.devices.length; i++) {
+        switch (data.devices[i].category) {
+            case 3:
+                switches.push(data.devices[i]);
+                break;
+            case 4:
+                sensors.push(data.devices[i]);
+                break;
+            case 8:
+                wcovers.push(data.devices[i]);
+                break;
+            case 17:
+                temp_sensors.push(data.devices[i]);
+                break;
+            case 18:
+                light_sensors.push(data.devices[i]);
+                break;
         }
-    });
+    }
 
     for (i=0;i < switches.length ; i++) {
         mswitches.push(switches[i].name);
