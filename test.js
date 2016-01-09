@@ -20,7 +20,7 @@
             // Got the data - parse it and return the temperature
             //dataParsed = $.parseJSON(data);
             dataversion = data.dataversion;
-            loadtime = data.loadtime;
+            loadtime =  data.loadtime;
             for (i=0 ; i< data.devices.length ; i++) {
                 switch (data.devices[i].category) {
                     case 3:
