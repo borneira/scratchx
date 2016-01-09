@@ -16,7 +16,7 @@
               success: function( data ) {
                   // Got the data - parse it and return the temperature
                   //dataParsed = $.parseJSON(data);
-                  luz = data.full;
+                  luz = data.devices[14].light;
                   ya (luz);
               },
         });
