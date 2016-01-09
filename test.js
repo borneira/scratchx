@@ -13,6 +13,7 @@
 
     mswitches = [];
     mdimmers = [];
+    mwcovers =[];
 
     data = JSON.parse ($.ajax({
         url: 'http://192.168.1.112/port_3480/data_request?id=lu_sdata',
@@ -50,9 +51,14 @@
     for (i=0;i < dimmers.length ; i++) {
         mdimmers.push(dimmers[i].name);
     }
+
+    for (i=0;i < wcovers.length ; i++) {
+        mwcovers.push(wcovers[i].name);
+    }
     var menu = new Object();
     menu.mswitches = mswitches;
     menu.mdimmers = mdimmers;
+    menu.mwcovers = mwcovers;
 
 
     // Cleanup function when the extension is unloaded
@@ -133,12 +139,40 @@ ext.set_alarm = function(time) {
         if (url=='') return 0;
         $.ajax({url: url, async: false });
     };
+
+    ext.subir = function(devicename) {
+        url = '';
+        for (i=0;i<wcovers.length;i++) {
+            if (wcovers[i].name==devicename) {
+                url = 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=' + wcovers[i].id;
+                url = url + '&serviceId=urn:upnp-org:serviceId:WindowCovering1&action=SetTarget&newTargetValue=1';
+                break;
+            }
+        }
+        if (url=='') return 0;
+        $.ajax({url: url, async: false });
+    };
+    ext.bajar = function(devicename) {
+        url = '';
+        for (i=0;i<wcovers.length;i++) {
+            if (wcovers[i].name==devicename) {
+                url = 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=' + wcovers[i].id;
+                url = url + '&serviceId=urn:upnp-org:serviceId:WindowCovering1&action=SetTarget&newTargetValue=0';
+                break;
+            }
+        }
+        if (url=='') return 0;
+        $.ajax({url: url, async: false });
+    };
+
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
             [' ', 'Encender %m.mswitches', 'encender'],
             [' ', 'Apagar %m.mswitches', 'apagar'],
             [' ', 'Ajustar a %n %m.mdimmers', 'ajustar', '100'],
+            [' ', 'Subir %m.mwcovers', 'subir'],
+            [' ', 'Bajar %m.mwcovers', 'bajar'],
             ['R', 'Luz SAURON', 'get_luz'],
             ['h', 'Cuando SAURON detecte movimiento', 'when_movimiento']
         ]
