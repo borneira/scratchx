@@ -12,6 +12,7 @@
     light_sensors = [];
 
     mswitches = [];
+    mdimmers = [];
 
     data = JSON.parse ($.ajax({
         url: 'http://192.168.1.112/port_3480/data_request?id=lu_sdata',
