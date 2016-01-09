@@ -21,6 +21,18 @@
               },
         });
     };
+
+ext.set_pecera_on = function() {
+    $.ajax({
+              url: 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=19&serviceId=urn:upnp-org:serviceId:SwitchPower1&action=SetTarget&newTargetValue=1',
+              async: false
+};
+
+ext.set_pecera_off = function() {
+    $.ajax({
+              url: 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=19&serviceId=urn:upnp-org:serviceId:SwitchPower1&action=SetTarget&newTargetValue=0',
+              async: false
+};
 ext.set_alarm = function(time) {
        window.setTimeout(function() {
            alarm_went_off = true;
@@ -40,6 +52,8 @@ ext.set_alarm = function(time) {
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
+            [' '], 'Encender Luz Pecera', set_pecera_on],
+            [' '], 'Apagar Luz Pecera', set_pecera_off],
             ['R', 'Luz SAURON', 'get_luz'],
             ['', 'run alarm after %n seconds', 'set_alarm', '2'],
             ['h', 'when alarm goes off', 'when_alarm'],
