@@ -54,8 +54,8 @@ ext.set_alarm = function(time) {
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
-            [' ', 'Encender Luz Pecera', set_pecera_on],
-            [' ', 'Apagar Luz Pecera', set_pecera_off],
+            [' ', 'Encender Luz Pecera', 'set_pecera_on'],
+            [' ', 'Apagar Luz Pecera', 'set_pecera_off'],
             ['R', 'Luz SAURON', 'get_luz'],
             ['', 'run alarm after %n seconds', 'set_alarm', '2'],
             ['h', 'when alarm goes off', 'when_alarm'],
