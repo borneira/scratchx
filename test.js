@@ -21,6 +21,9 @@
     loadtime = data.loadtime;
     for (i = 0; i < data.devices.length; i++) {
         switch (data.devices[i].category) {
+            case 2:
+                dimmers.push(data.devices[i]);
+                break;
             case 3:
                 switches.push(data.devices[i]);
                 break;
@@ -42,8 +45,14 @@
     for (i=0;i < switches.length ; i++) {
         mswitches.push(switches[i].name);
     }
+
+    for (i=0;i < dimmers.length ; i++) {
+        mdimmers.push(dimmers[i].name);
+    }
     var menu = new Object();
     menu.mswitches = mswitches;
+    menu.mdimmers = mdimmers;
+
 
     // Cleanup function when the extension is unloaded
     ext._shutdown = function() {};
@@ -68,19 +77,7 @@
         });
     };
 
-ext.set_pecera_on = function() {
-    $.ajax({
-              url: 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=19&serviceId=urn:upnp-org:serviceId:SwitchPower1&action=SetTarget&newTargetValue=1',
-              async: false
-    });
-};
 
-ext.set_pecera_off = function() {
-    $.ajax({
-              url: 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=19&serviceId=urn:upnp-org:serviceId:SwitchPower1&action=SetTarget&newTargetValue=0',
-              async: false
-    });
-};
 ext.set_alarm = function(time) {
        window.setTimeout(function() {
            alarm_went_off = true;
@@ -122,13 +119,25 @@ ext.set_alarm = function(time) {
         if (url=='') return 0;
         $.ajax({url: url, async: false });
     };
+    ext.ajustar = function(level, devicename) {
+        url = '';
+        for (i=0;i<dimmers.length;i++) {
+            if (dimmers[i].name==devicename) {
+                url = 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=' + dimmers[i].id;
+                url = url + '&serviceId=urn:upnp-org:serviceId:Dimming1&action=SetLoadLevelTarget&newLoadlevelTarget=';
+                url = url + level;
+                break;
+            }
+        }
+        if (url=='') return 0;
+        $.ajax({url: url, async: false });
+    };
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
-            [' ', 'Encender Luz Pecera', 'set_pecera_on'],
-            [' ', 'Apagar Luz Pecera', 'set_pecera_off'],
             [' ', 'Encender %m.mswitches', 'encender'],
             [' ', 'Apagar %m.mswitches', 'apagar'],
+            [' ', 'Ajustar a %n %m.mdimmers', 'ajustar', '100'],
             ['R', 'Luz SAURON', 'get_luz'],
             ['h', 'Cuando SAURON detecte movimiento', 'when_movimiento']
         ]
