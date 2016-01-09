@@ -101,7 +101,7 @@ ext.set_alarm = function(time) {
         url = '';
         for (i=0;i<switches.length;i++) {
             if (switches[i].name==devicename) {
-                url = 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=' + switches.id;
+                url = 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=' + switches[i].id;
                 url = url + '&serviceId=urn:upnp-org:serviceId:SwitchPower1&action=SetTargetValue=1';
                 break;
             }
@@ -114,7 +114,7 @@ ext.set_alarm = function(time) {
         url = '';
         for (i=0;i<switches.length;i++) {
             if (switches[i].name==devicename) {
-                url = 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=' + switches.id;
+                url = 'http://192.168.1.112/port_3480/data_request?id=lu_action&DeviceNum=' + switches[i].id;
                 url = url + '&serviceId=urn:upnp-org:serviceId:SwitchPower1&action=SetTargetValue=0';
                 break;
             }
