@@ -33,10 +33,10 @@
                         wcovers.push(data.devices[i]);
                         break;
                     case 17:
-                        temp_sensors(data.devices[i]);
+                        temp_sensors.push(data.devices[i]);
                         break;
                     case 18:
-                        light_sensors(data.devices[i]);
+                        light_sensors.push(data.devices[i]);
                         break;
                 }
             }
