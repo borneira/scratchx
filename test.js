@@ -133,6 +133,7 @@ ext.set_alarm = function(time) {
             ['h', 'Cuando SAURON detecte movimiento', 'when_movimiento']
         ]
     };
+    descriptor.menus = menu;
 
     // Register the extension
     ScratchExtensions.register('Weather extension', descriptor, ext);
