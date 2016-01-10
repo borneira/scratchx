@@ -93,8 +93,8 @@
             $.ajax({
                 url: url,
                 success: function (data) {
-                    console.log("Success");
-                    loadtime = data.loadtime2;
+                    console.log("Success" + data);
+                    loadtime = data.loadtime;
                     dataversion = data.dataversion;
                     for (i = 0; i < data.devices.length; i++) {
                         for (j = 0; i < sensors.length; j++) {
