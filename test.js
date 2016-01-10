@@ -123,7 +123,7 @@
                                     if (data.devices[i].level != dimmers[j].level) {
                                         dimmers[j].level = data.devices[i].level;
                                         dimmers[j].cambio_nivel = true;
-                                        console.log("Cambio nivel" + dimmers[j].name);
+                                        console.log("Cambio nivel " + dimmers[j].name +" "+ dimmers[j].level);
                                     }
 
                                 }
