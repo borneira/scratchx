@@ -35,7 +35,6 @@
                 break;
             case 8:
                 wcovers.push(data.devices[i]);
-                dimmers.push(data.devices[i]);
                 break;
             case 17:
                 temp_sensors.push(data.devices[i]);
@@ -70,6 +69,7 @@
     // Use this to report missing hardware, plugin or unsupported browser
     ext._getStatus = function() {
         return {status: 2, msg: 'Ready'};
+        write.console("getStatus");
     };
 
     ext.get_luz = function(ya) {
