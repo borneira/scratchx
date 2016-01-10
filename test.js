@@ -80,7 +80,6 @@
     // Use this to report missing hardware, plugin or unsupported browser
     ext._getStatus = function() {
         if (comprobando_estado) {
-            console.log("getStatus");
             return {status: 2, msg: 'Ready'};
         }
         else {
@@ -89,12 +88,10 @@
             url = url + '&dataversion=' + dataversion;
             url = url + '&timeout=' + timeout;
             url = url + '&minimumdelay=' + minimumdelay;
-            console.log("comprobando_estado true");
             comprobando_estado = true;
             $.ajax({
                 url: url,
                 success: function (data) {
-                    console.log("Success" + data);
                     loadtime = data.loadtime;
                     dataversion = data.dataversion;
                     if (data.devices != null) {
@@ -126,17 +123,16 @@
                                     if (data.devices[i].level != dimmers[j].level) {
                                         dimmers[j].level = data.devices[i].level;
                                         dimmers[j].cambio_nivel = true;
+                                        console.log("Cambio nivel" + dimmers[j].name);
                                     }
 
                                 }
                             }
                         }
                     }
-                    console.log("comprobando_estado false - success");
                     comprobando_estado = false;
                 },
                 error: function () {
-                    console.log("comprobando_estado false - error");
                     comprobando_estado = false;
                 }
             });
