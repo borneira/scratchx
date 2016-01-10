@@ -78,28 +78,28 @@
     // Status reporting code
     // Use this to report missing hardware, plugin or unsupported browser
     ext._getStatus = function() {
-        url = 'http://192.168.1.112/port_3480/data_request?id=lu_sdata';
-        url = url + '&loadtime=' + loadtime;
-        url = url + '&dataversion=' + dataversion;
-        url = url + '&timeout=' + timeout;
-        url = url + '&minimumdelay=' + minimumdelay;
-
         if (comprobando_estado) {
             console.log("getStatus");
             return {status: 2, msg: 'Ready'};
         }
         else {
+            url = 'http://192.168.1.112/port_3480/data_request?id=lu_sdata';
+            url = url + '&loadtime=' + loadtime;
+            url = url + '&dataversion=' + dataversion;
+            url = url + '&timeout=' + timeout;
+            url = url + '&minimumdelay=' + minimumdelay;
             console.log("comprobando_estado true");
             comprobando_estado = true;
             $.ajax({
                 url: url,
                 success: function (data) {
+                    console.log("Success");
                     loadtime = data.loadtime;
                     dataversion = data.dataversion;
                     for (i = 0; i < data.devices.length; i++) {
                         for (j = 0; i < sensors.length; j++) {
                             if (data.devices[i].id == sensors[j].id) {
-                                if (data.devices[i].tripped == 1 && (data.devices[i].lasttripped > sensors[j].lasttripped)) {
+                                if ((data.devices[i].tripped == 1) && (data.devices[i].lasttripped > sensors[j].lasttripped)) {
                                     sensors[j].lasttripped = data.devices[i].lasttripped;
                                     sensors[j].tripped = 1;
                                 }
