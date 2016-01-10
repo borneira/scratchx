@@ -142,7 +142,8 @@
 
     ext.detectar = function(devicename) {
         window.setTimeout(function() {
-        for (i=0;i<sensors.length;i++) {
+            console.log("detectar")
+            for (i=0;i<sensors.length;i++) {
             if (sensors[i].name == devicename) {
                 if (sensors[i].tripped == 1) {
                     sensors[i].tripped = 0;
@@ -152,11 +153,11 @@
         }
         return false;
         }, time*10000);
-        console.log("detectar")
     };
     ext.cambio_estado = function(devicename, estado) {
         window.setTimeout(function() {
-        for (i = 0; i < switches.length; i++) {
+            console.log("cambio_estado")
+            for (i = 0; i < switches.length; i++) {
             if (switches[i].name == devicename) {
                 if (switches[i].cambio_estado) {
                     if (switches[i].status == estado) {
@@ -168,11 +169,12 @@
         }
         return false;
         }, time*1000);
-        console.log("cambio_estado")
     };
     ext.cambio_nivel = function (devicename, comparacion, nivel) {
         window.setTimeout(function() {
-        for (i = 0; i < dimmers.length; i++) {
+            console.log("cambio_nivel")
+
+            for (i = 0; i < dimmers.length; i++) {
             if (dimmers[i].name == devicename) {
                 if (dimmers[i].cambio_nivel) {
                     dimmers[i].cambio_nivel=false;
@@ -189,7 +191,6 @@
         }
         return false;
         }, time*5000);
-        console.log("cambio_nivel")
     };
     ext.encender = function(devicename) {
         url = '';
