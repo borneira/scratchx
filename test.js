@@ -1,8 +1,9 @@
 (function(ext) {
 
-    sauron_ve_movimiento = false;
     dataversion = 0;
     loadtime = 0;
+    timeout = 60;
+    minimumdelay=1000;
 
     switches = [];
     dimmers = [];
@@ -56,10 +57,16 @@
     for (i=0;i < wcovers.length ; i++) {
         mwcovers.push(wcovers[i].name);
     }
+
+    for (i=0;i < sensors.length ; i++) {
+        msensors.push(sensors[i].name);
+    }
+
     var menu = new Object();
     menu.mswitches = mswitches;
     menu.mdimmers = mdimmers;
-    menu.mwcovers = mwcovers;
+    menu.mwcovers = mwcovers;m
+    menu.msensors = sensors;
 
 
     // Cleanup function when the extension is unloaded
@@ -69,39 +76,54 @@
     // Use this to report missing hardware, plugin or unsupported browser
     ext._getStatus = function() {
         console.log("getStatus");
+        url = 'http://192.168.1.112/port_3480/data_request?id=lu_sdata';
+        url = url + '&loadtime=' + loadtime;
+        url = url + '&dataversion=' +dataversion;
+        url = url + '&timeout=' + timeout;
+        url = url + '&minimumdelay=' + minimumdelay;
+
+        data = JSON.parse ($.ajax({
+            url: url,
+            async: false}).responseText);
+
+        for (i = 0; i < data.devices.length; i++) {
+            switch (data.devices[i].category) {
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    for (j=0;j<sensors.length;j++) {
+                        if (sensors[j].name==data.devices[i].name) break;
+                    }
+                    if (data.devices[i].tripped==1 && (data.devices[i].lasttripped > sensors[j].lasttripped)) {
+                        sensors[j].lasttripped = data.devices[i].lasttripped;
+                        sensors[j].tripped = 1;
+                    }
+                    break;
+                case 8:
+                    break;
+                case 17:
+                    break;
+                case 18:
+                    break;
+            }
+        }
+
+
         return {status: 2, msg: 'Ready'};
     };
 
-    ext.get_luz = function(ya) {
-        // Make an AJAX call to the Open Weather Maps API
-        $.ajax({
-              url: 'http://192.168.1.112/port_3480/data_request?id=lu_sdata',
-              async: false,
-              success: function( data ) {
-                  // Got the data - parse it and return the temperature
-                  //dataParsed = $.parseJSON(data);
-                  luz = data.devices[14].light;
-                  ya (luz);
-              },
-        });
-    };
-
-
-ext.set_alarm = function(time) {
-       window.setTimeout(function() {
-           alarm_went_off = true;
-       }, time*1000);
-    };
-
-    ext.when_movimiento = function() {
-       // Reset alarm_went_off if it is true, and return true
-       // otherwise, return false.
-       if (sauron_ve_movimiento === true) {
-           sauron_ve_movimiento = false;
-           return true;
-       }
-
-       return false;
+    ext.detectar = function(devicename) {
+        for (i=0;i<sensors.length;i++) {
+            if (sensors[i].name == devicename) {
+                if (sensors[i].tripped == 1) {
+                    sensors[i].tripped = 0;
+                    return true;
+                }
+            }
+        }
+        return false;
     };
     ext.encender = function(devicename) {
         url = '';
@@ -175,8 +197,7 @@ ext.set_alarm = function(time) {
             [' ', 'Ajustar a %n %m.mdimmers', 'ajustar', '100'],
             [' ', 'Subir %m.mwcovers', 'subir'],
             [' ', 'Bajar %m.mwcovers', 'bajar'],
-            ['R', 'Luz SAURON', 'get_luz'],
-            ['h', 'Cuando SAURON detecte movimiento', 'when_movimiento']
+            ['h', 'Detectar %m.msensors', 'detectar']
         ]
     };
     descriptor.menus = menu;
