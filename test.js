@@ -89,7 +89,7 @@
             return {status: 2, msg: 'Ready'};
         }
         else {
-            console.log("comprobando_estado);
+            console.log("comprobando_estado true");
             comprobando_estado = true;
             $.ajax({
                 url: url,
@@ -106,10 +106,12 @@
                             }
                         }
                     }
+                    console.log("comprobando_estado false - success");
                     comprobando_estado = false;
                 },
                 error: function () {
-                    comprobar_estado = false;
+                    console.log("comprobando_estado false - error");
+                    comprobando_estado = false;
                 }
             });
             return {status: 2, msg: 'Ready'};
