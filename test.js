@@ -173,11 +173,11 @@
                 if (dimmers[i].cambio_nivel) {
                     switch (comparacion) {
                         case '>':
-                            if (dimmers[i].level > level) return true;
+                            if (dimmers[i].level > nivel) return true;
                         case '=':
-                            if (dimmers[i].level == level) return true;
+                            if (dimmers[i].level == nivel) return true;
                         case '<':
-                            if (dimmers[i].level < level) return true;
+                            if (dimmers[i].level < nivel) return true;
                     }
                 }
             }
