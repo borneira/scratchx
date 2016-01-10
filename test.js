@@ -36,6 +36,7 @@
                 break;
             case 4:
                 sensors.push(data.devices[i]);
+                console.log (data.devices[i].name);
                 break;
             case 8:
                 wcovers.push(data.devices[i]);
@@ -95,28 +96,14 @@
                 success: function (data) {
                     loadtime = data.loadtime;
                     dataversion = data.dataversion;
-
                     for (i = 0; i < data.devices.length; i++) {
-                        switch (data.devices[i].category) {
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                for (j = 0; j < sensors.length; j++) {
-                                    if (sensors[j].name == data.devices[i].name) break;
-                                }
+                        for (j = 0; i < sensors.length; j++) {
+                            if (data.devices[i].id == sensors[j].id) {
                                 if (data.devices[i].tripped == 1 && (data.devices[i].lasttripped > sensors[j].lasttripped)) {
                                     sensors[j].lasttripped = data.devices[i].lasttripped;
                                     sensors[j].tripped = 1;
                                 }
-                                break;
-                            case 8:
-                                break;
-                            case 17:
-                                break;
-                            case 18:
-                                break;
+                            }
                         }
                     }
                     comprobando_estado = false;
