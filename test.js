@@ -36,7 +36,6 @@
                 break;
             case 4:
                 sensors.push(data.devices[i]);
-                console.log (data.devices[i].name);
                 break;
             case 8:
                 wcovers.push(data.devices[i]);
@@ -79,7 +78,6 @@
     // Status reporting code
     // Use this to report missing hardware, plugin or unsupported browser
     ext._getStatus = function() {
-        console.log("getStatus");
         url = 'http://192.168.1.112/port_3480/data_request?id=lu_sdata';
         url = url + '&loadtime=' + loadtime;
         url = url + '&dataversion=' + dataversion;
@@ -87,9 +85,11 @@
         url = url + '&minimumdelay=' + minimumdelay;
 
         if (comprobando_estado) {
+            console.log("getStatus");
             return {status: 2, msg: 'Ready'};
         }
         else {
+            console.log("comprobando_estado);
             comprobando_estado = true;
             $.ajax({
                 url: url,
@@ -107,6 +107,9 @@
                         }
                     }
                     comprobando_estado = false;
+                },
+                error: function () {
+                    comprobar_estado = false;
                 }
             });
             return {status: 2, msg: 'Ready'};
