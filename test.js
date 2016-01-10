@@ -71,6 +71,7 @@
     menu.mwcovers = mwcovers;
     menu.msensors = msensors;
 
+    menu.comparacion = ['>', '=', '<'];
 
     // Cleanup function when the extension is unloaded
     ext._shutdown = function() {};
@@ -98,12 +99,35 @@
                     dataversion = data.dataversion;
                     if (data.devices != null) {
                         for (i = 0; i < data.devices.length; i++) {
+                            // Sensores
                             for (j = 0; j < sensors.length; j++) {
+                                //Alarmas activadas
                                 if (data.devices[i].id == sensors[j].id) {
                                     if ((data.devices[i].tripped == 1) && (data.devices[i].lasttrip > sensors[j].lasttrip)) {
                                         sensors[j].lasttrip = data.devices[i].lasttrip;
                                         sensors[j].tripped = 1;
                                     }
+                                }
+                            }
+                            //Switchers
+                            for (j = 0; j < switches.length; j++) {
+                                //Cambios de estado
+                                if (data.devices[i].id == switches[j].id) {
+                                    if (data.devices[i].status != switches[j].status) {
+                                        switches[j].status = data.devices[i].status;
+                                        switches[j].cambio_estado = true;
+                                    }
+                                }
+                            }
+                            //Dimmers
+                            for (j = 0; j < dimmers.length; j++) {
+                                //Cambios de nivel
+                                if (data.devices[i].id == dimmers[j].id) {
+                                    if (data.devices[i].level != dimmers[j].level) {
+                                        dimmers[j].level = data.devices[i].level;
+                                        dimmers[j].cambio_nivel = true;
+                                    }
+
                                 }
                             }
                         }
@@ -126,6 +150,35 @@
                 if (sensors[i].tripped == 1) {
                     sensors[i].tripped = 0;
                     return true;
+                }
+            }
+        }
+        return false;
+    };
+    ext.cambio_estado = function(devicename, estado) {
+        for (i = 0; i < switches.length; i++) {
+            if (switches[i].name == devicename) {
+                if (switches[i].cambio_estado) {
+                    if (switches[i].estado == estado) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    };
+    ext.cambio_nivel = function (devicename, comparacion, nivel) {
+        for (i = 0; i < dimmers.length; i++) {
+            if (dimmers[i].name == devicename) {
+                if (dimmers[i].cambio_nivel) {
+                    switch (comparacion) {
+                        case '>':
+                            if (dimmers[i].level > level) return true;
+                        case '=':
+                            if (dimmers[i].level == level) return true;
+                        case '<':
+                            if (dimmers[i].level < level) return true;
+                    }
                 }
             }
         }
@@ -203,7 +256,9 @@
             [' ', 'Ajustar a %n %m.mdimmers', 'ajustar', '100'],
             [' ', 'Subir %m.mwcovers', 'subir'],
             [' ', 'Bajar %m.mwcovers', 'bajar'],
-            ['h', 'Detectar %m.msensors', 'detectar']
+            ['h', 'Detectar %m.msensors', 'detectar'],
+            ['h', 'Cambio de estado %m.switches', 'cambio_estado'],
+            ['h', 'Cambio nivel %m.dimmers % m.comparacion %n', 'cambio_nivel', '>', '0']
         ]
     };
     descriptor.menus = menu;
