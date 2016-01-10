@@ -206,5 +206,5 @@
     descriptor.menus = menu;
 
     // Register the extension
-    ScratchExtensions.register('Weather extension', descriptor, ext);
+    ScratchExtensions.register('Vera extension', descriptor, ext);
 })({});
