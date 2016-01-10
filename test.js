@@ -97,7 +97,7 @@
                     loadtime = data.loadtime;
                     dataversion = data.dataversion;
                     for (i = 0; i < data.devices.length; i++) {
-                        for (j = 0; i < sensors.length; j++) {
+                        for (j = 0; j < sensors.length; j++) {
                             if (data.devices[i].id == sensors[j].id) {
                                 if ((data.devices[i].tripped == 1) && (data.devices[i].lasttripped > sensors[j].lasttripped)) {
                                     sensors[j].lasttripped = data.devices[i].lasttripped;
