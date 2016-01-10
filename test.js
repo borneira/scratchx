@@ -94,7 +94,7 @@
                 url: url,
                 success: function (data) {
                     console.log("Success");
-                    loadtime = data.loadtime;
+                    loadtime = data.loadtime2;
                     dataversion = data.dataversion;
                     for (i = 0; i < data.devices.length; i++) {
                         for (j = 0; i < sensors.length; j++) {
