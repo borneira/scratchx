@@ -86,6 +86,8 @@
         data = JSON.parse ($.ajax({
             url: url,
             async: false}).responseText);
+        loadtime= data.loadtime;
+        dataversion = data.dataversion;
 
         for (i = 0; i < data.devices.length; i++) {
             switch (data.devices[i].category) {
