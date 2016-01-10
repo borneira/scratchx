@@ -152,7 +152,7 @@
                 }
             }
             return false;
-        }, time * 10000);
+        }, 10000);
     };
     ext.cambio_estado = function (devicename, estado) {
         window.setTimeout(function() {
@@ -168,7 +168,7 @@
                 }
             }
             return false;
-        }, time * 1000);
+        }, 1000);
     };
     ext.cambio_nivel = function (devicename, comparacion, nivel) {
         window.setTimeout(function() {
@@ -190,7 +190,7 @@
                 }
             }
             return false;
-        }, time * 5000);
+        }, 5000);
     };
     ext.encender = function(devicename) {
         url = '';
