@@ -257,8 +257,8 @@
             [' ', 'Subir %m.mwcovers', 'subir'],
             [' ', 'Bajar %m.mwcovers', 'bajar'],
             ['h', 'Detectar %m.msensors', 'detectar'],
-            ['h', 'Cambio de estado %m.switches', 'cambio_estado'],
-            ['h', 'Cambio nivel %m.dimmers % m.comparacion %n', 'cambio_nivel', '>', '0']
+            ['h', 'Cambio de estado %m.mswitches', 'cambio_estado'],
+            ['h', 'Cambio nivel %m.mdimmers %m.comparacion %n', 'cambio_nivel', '>', '0']
         ]
     };
     descriptor.menus = menu;
