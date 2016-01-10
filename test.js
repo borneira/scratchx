@@ -66,7 +66,7 @@
     var menu = new Object();
     menu.mswitches = mswitches;
     menu.mdimmers = mdimmers;
-    menu.mwcovers = mwcovers;m
+    menu.mwcovers = mwcovers;
     menu.msensors = sensors;
 
 
