@@ -70,7 +70,7 @@
     menu.mswitches = mswitches;
     menu.mdimmers = mdimmers;
     menu.mwcovers = mwcovers;
-    menu.msensors = sensors;
+    menu.msensors = msensors;
 
 
     // Cleanup function when the extension is unloaded
