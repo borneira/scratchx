@@ -257,7 +257,7 @@
             [' ', 'Subir %m.mwcovers', 'subir'],
             [' ', 'Bajar %m.mwcovers', 'bajar'],
             ['h', 'Detectar %m.msensors', 'detectar'],
-            ['h', 'Cambio de estado %m.mswitches', 'cambio_estado'],
+            ['h', 'Cambio de estado %m.mswitches %n', 'cambio_estado', '1'],
             ['h', 'Cambio nivel %m.mdimmers %m.comparacion %n', 'cambio_nivel', '>', '0']
         ]
     };
