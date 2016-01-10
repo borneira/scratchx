@@ -96,12 +96,14 @@
                     console.log("Success" + data);
                     loadtime = data.loadtime;
                     dataversion = data.dataversion;
-                    for (i = 0; i < data.devices.length; i++) {
-                        for (j = 0; j < sensors.length; j++) {
-                            if (data.devices[i].id == sensors[j].id) {
-                                if ((data.devices[i].tripped == 1) && (data.devices[i].lasttrip > sensors[j].lasttrip)) {
-                                    sensors[j].lasttrip = data.devices[i].lasttrip;
-                                    sensors[j].tripped = 1;
+                    if (data.devices != null) {
+                        for (i = 0; i < data.devices.length; i++) {
+                            for (j = 0; j < sensors.length; j++) {
+                                if (data.devices[i].id == sensors[j].id) {
+                                    if ((data.devices[i].tripped == 1) && (data.devices[i].lasttrip > sensors[j].lasttrip)) {
+                                        sensors[j].lasttrip = data.devices[i].lasttrip;
+                                        sensors[j].tripped = 1;
+                                    }
                                 }
                             }
                         }
