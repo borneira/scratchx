@@ -140,57 +140,57 @@
         }
     };
 
-    ext.detectar = function(devicename) {
+    ext.detectar = function (devicename) {
         window.setTimeout(function() {
             console.log("detectar");
-            for (i=0;i<sensors.length;i++) {
-            if (sensors[i].name == devicename) {
-                if (sensors[i].tripped == 1) {
-                    sensors[i].tripped = 0;
-                    return true;
-                }
-            }
-        }
-        return false;
-        }, time*10000);
-    };
-    ext.cambio_estado = function(devicename, estado) {
-        window.setTimeout(function() {
-            console.log("cambio_estado");
-            for (i = 0; i < switches.length; i++) {
-            if (switches[i].name == devicename) {
-                if (switches[i].cambio_estado) {
-                    if (switches[i].status == estado) {
-                        switches[i].cambio_estado=false;
+            for (i = 0; i < sensors.length; i++) {
+                if (sensors[i].name == devicename) {
+                    if (sensors[i].tripped == 1) {
+                        sensors[i].tripped = 0;
                         return true;
                     }
                 }
             }
-        }
-        return false;
-        }, time*1000);
+            return false;
+        }, time * 10000);
+    };
+    ext.cambio_estado = function (devicename, estado) {
+        window.setTimeout(function() {
+            console.log("cambio_estado");
+            for (i = 0; i < switches.length; i++) {
+                if (switches[i].name == devicename) {
+                    if (switches[i].cambio_estado) {
+                        if (switches[i].status == estado) {
+                            switches[i].cambio_estado = false;
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }, time * 1000);
     };
     ext.cambio_nivel = function (devicename, comparacion, nivel) {
         window.setTimeout(function() {
             console.log("cambio_nivel");
 
             for (i = 0; i < dimmers.length; i++) {
-            if (dimmers[i].name == devicename) {
-                if (dimmers[i].cambio_nivel) {
-                    dimmers[i].cambio_nivel=false;
-                    switch (comparacion) {
-                        case '>':
-                            if (dimmers[i].level > nivel) return true;
-                        case '=':
-                            if (dimmers[i].level == nivel) return true;
-                        case '<':
-                            if (dimmers[i].level < nivel) return true;
+                if (dimmers[i].name == devicename) {
+                    if (dimmers[i].cambio_nivel) {
+                        dimmers[i].cambio_nivel = false;
+                        switch (comparacion) {
+                            case '>':
+                                if (dimmers[i].level > nivel) return true;
+                            case '=':
+                                if (dimmers[i].level == nivel) return true;
+                            case '<':
+                                if (dimmers[i].level < nivel) return true;
+                        }
                     }
                 }
             }
-        }
-        return false;
-        }, time*5000);
+            return false;
+        }, time * 5000);
     };
     ext.encender = function(devicename) {
         url = '';
