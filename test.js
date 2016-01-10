@@ -159,7 +159,8 @@
         for (i = 0; i < switches.length; i++) {
             if (switches[i].name == devicename) {
                 if (switches[i].cambio_estado) {
-                    if (switches[i].estado == estado) {
+                    if (switches[i].status == estado) {
+                        switches[i].cambio_estado=false;
                         return true;
                     }
                 }
@@ -171,6 +172,7 @@
         for (i = 0; i < dimmers.length; i++) {
             if (dimmers[i].name == devicename) {
                 if (dimmers[i].cambio_nivel) {
+                    dimmers[i].cambio_nivel=false;
                     switch (comparacion) {
                         case '>':
                             if (dimmers[i].level > nivel) return true;
