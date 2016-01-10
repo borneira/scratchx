@@ -165,6 +165,7 @@
         return false;
     };
     ext.cambio_nivel = function (devicename, comparacion, nivel) {
+        console.log("Cambio nivel? " +comparacion);
         for (i = 0; i < dimmers.length; i++) {
             if (dimmers[i].name == devicename) {
                 if (dimmers[i].cambio_nivel) {
