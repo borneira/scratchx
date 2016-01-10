@@ -5,6 +5,8 @@
     timeout = 60;
     minimumdelay=1000;
 
+    comprobando_estado = false;
+
     switches = [];
     dimmers = [];
     wcovers = [];
@@ -79,42 +81,49 @@
         console.log("getStatus");
         url = 'http://192.168.1.112/port_3480/data_request?id=lu_sdata';
         url = url + '&loadtime=' + loadtime;
-        url = url + '&dataversion=' +dataversion;
+        url = url + '&dataversion=' + dataversion;
         url = url + '&timeout=' + timeout;
         url = url + '&minimumdelay=' + minimumdelay;
 
-        data = JSON.parse ($.ajax({
-            url: url,
-            async: false}).responseText);
-        loadtime= data.loadtime;
-        dataversion = data.dataversion;
-
-        for (i = 0; i < data.devices.length; i++) {
-            switch (data.devices[i].category) {
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    for (j=0;j<sensors.length;j++) {
-                        if (sensors[j].name==data.devices[i].name) break;
-                    }
-                    if (data.devices[i].tripped==1 && (data.devices[i].lasttripped > sensors[j].lasttripped)) {
-                        sensors[j].lasttripped = data.devices[i].lasttripped;
-                        sensors[j].tripped = 1;
-                    }
-                    break;
-                case 8:
-                    break;
-                case 17:
-                    break;
-                case 18:
-                    break;
-            }
+        if (comprobando_estado) {
+            return {status: 2, msg: 'Ready'};
         }
+        else {
+            comprobando_estado = true;
+            $.ajax({
+                url: url,
+                success: function (data) {
+                    loadtime = data.loadtime;
+                    dataversion = data.dataversion;
 
-
-        return {status: 2, msg: 'Ready'};
+                    for (i = 0; i < data.devices.length; i++) {
+                        switch (data.devices[i].category) {
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                for (j = 0; j < sensors.length; j++) {
+                                    if (sensors[j].name == data.devices[i].name) break;
+                                }
+                                if (data.devices[i].tripped == 1 && (data.devices[i].lasttripped > sensors[j].lasttripped)) {
+                                    sensors[j].lasttripped = data.devices[i].lasttripped;
+                                    sensors[j].tripped = 1;
+                                }
+                                break;
+                            case 8:
+                                break;
+                            case 17:
+                                break;
+                            case 18:
+                                break;
+                        }
+                    }
+                    comprobando_estado = false;
+                }
+            });
+            return {status: 2, msg: 'Ready'};
+        }
     };
 
     ext.detectar = function(devicename) {
