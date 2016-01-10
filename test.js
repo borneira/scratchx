@@ -25,6 +25,7 @@
         switch (data.devices[i].category) {
             case 2:
                 dimmers.push(data.devices[i]);
+                switches.push(data.devices[i]);
                 break;
             case 3:
                 switches.push(data.devices[i]);
@@ -34,6 +35,7 @@
                 break;
             case 8:
                 wcovers.push(data.devices[i]);
+                dimmers.push(data.devices[i]);
                 break;
             case 17:
                 temp_sensors.push(data.devices[i]);
