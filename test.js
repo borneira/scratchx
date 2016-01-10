@@ -142,7 +142,7 @@
 
     ext.detectar = function(devicename) {
         window.setTimeout(function() {
-            console.log("detectar")
+            console.log("detectar");
             for (i=0;i<sensors.length;i++) {
             if (sensors[i].name == devicename) {
                 if (sensors[i].tripped == 1) {
@@ -156,7 +156,7 @@
     };
     ext.cambio_estado = function(devicename, estado) {
         window.setTimeout(function() {
-            console.log("cambio_estado")
+            console.log("cambio_estado");
             for (i = 0; i < switches.length; i++) {
             if (switches[i].name == devicename) {
                 if (switches[i].cambio_estado) {
@@ -172,7 +172,7 @@
     };
     ext.cambio_nivel = function (devicename, comparacion, nivel) {
         window.setTimeout(function() {
-            console.log("cambio_nivel")
+            console.log("cambio_nivel");
 
             for (i = 0; i < dimmers.length; i++) {
             if (dimmers[i].name == devicename) {
